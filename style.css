@@ -37,7 +37,21 @@ body {
   border-radius: 5px;
   width: 300px;
 }
+.card p.negative-change {
+  color: red;
+}
 
+.card p.positive-change {
+  color: green;
+}
+
+.table td.negative-change {
+  color: red;
+}
+
+.table td.positive-change {
+  color: green;
+}
 .table-container {
   width: 100%;
   overflow-x: auto; /* Enable horizontal scrolling for small screens */

@@ -19,51 +19,56 @@ function displayGridView(data) {
   data.forEach(crypto => {
     const card = document.createElement('div');
     card.classList.add('card');
+
+    const changeClass = crypto.price_change_percentage_24h < 0 ? 'negative-change' : 'positive-change';
     card.innerHTML = `
       <img src="${crypto.image}" alt="${crypto.name}">
       <h3>${crypto.name}</h3>
       <p>Price: $${crypto.current_price}</p>
+      <p class="${changeClass}">24h Change: ${crypto.price_change_percentage_24h}%</p>
       <p>Market Cap: $${crypto.market_cap}</p>
-      <p>24h Change: ${crypto.price_change_percentage_24h}%</p>
     `;
     container.appendChild(card);
   });
 }
 
 function displayListView(data) {
-        container.innerHTML = '';
-        const tableContainer = document.createElement('div');
-        tableContainer.classList.add('table-container');
-        const table = document.createElement('table');
-        table.classList.add('table');
-      
-        // Table header
-        const headerRow = document.createElement('tr');
-        headerRow.innerHTML = `
-          <th>Image</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Market Cap</th>
-          <th>24h Change</th>
-        `;
-        table.appendChild(headerRow);
-      
-        // Table rows
-        data.forEach(crypto => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td><img src="${crypto.image}" alt="${crypto.name}" width="30"></td>
-            <td>${crypto.name}</td>
-            <td>$${crypto.current_price}</td>
-            <td>$${crypto.market_cap}</td>
-            <td>${crypto.price_change_percentage_24h}%</td>
-          `;
-          table.appendChild(row);
-        });
-      
-        tableContainer.appendChild(table);
-        container.appendChild(tableContainer);
-      }
+  container.innerHTML = '';
+  const tableContainer = document.createElement('div');
+  tableContainer.classList.add('table-container');
+  const table = document.createElement('table');
+  table.classList.add('table');
+
+  // Table header
+  const headerRow = document.createElement('tr');
+  headerRow.innerHTML = `
+    <th>Image</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>24h Change</th>
+    <th>Market Cap</th>
+  `;
+  table.appendChild(headerRow);
+
+  // Table rows
+  data.forEach(crypto => {
+    const row = document.createElement('tr');
+
+    const changeClass = crypto.price_change_percentage_24h < 0 ? 'negative-change' : 'positive-change';
+    row.innerHTML = `
+      <td><img src="${crypto.image}" alt="${crypto.name}" width="30"></td>
+      <td>${crypto.name}</td>
+      <td>$${crypto.current_price}</td>
+      <td class="${changeClass}">${crypto.price_change_percentage_24h}%</td>
+      <td>$${crypto.market_cap}</td>
+    `;
+    table.appendChild(row);
+  });
+
+  tableContainer.appendChild(table);
+  container.appendChild(tableContainer);
+}
+
 
 function updateView() {
   if (activeView === 'grid') {
